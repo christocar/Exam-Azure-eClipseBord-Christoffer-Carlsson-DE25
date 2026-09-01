@@ -56,3 +56,25 @@ resource "azurerm_linux_web_app" "backend" {
     WEBSITES_PORT = "8000"
   }
 }
+
+resource "azurerm_linux_web_app" "frontend" {
+  name                = "app-${var.project_name}-frontend-${var.unique_suffix}"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_service_plan.plan.location
+  service_plan_id     = azurerm_service_plan.plan.id
+
+  site_config {
+    application_stack {
+      docker_image_name   = "eclipsebord-frontend:v1"
+      docker_registry_url = "https://${azurerm_container_registry.acr.login_server}"
+
+      docker_registry_username = azurerm_container_registry.acr.admin_username
+      docker_registry_password = azurerm_container_registry.acr.admin_password
+    }
+  }
+
+  app_settings = {
+    WEBSITES_PORT = "8501"
+    API_URL       = "https://${azurerm_linux_web_app.backend.default_hostname}"
+  }
+}

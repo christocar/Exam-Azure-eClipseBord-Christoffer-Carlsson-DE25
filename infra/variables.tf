@@ -5,7 +5,7 @@ variable "project_name" {
 
 variable "location" {
   type    = string
-  default = "norwayeast"
+  default = "denmarkeast"
 }
 
 # ACR names are globally unique across all of Azure, so this needs to be yours
