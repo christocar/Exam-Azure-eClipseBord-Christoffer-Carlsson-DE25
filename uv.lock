@@ -183,12 +183,14 @@ version = "0.1.0"
 source = { editable = "backend" }
 dependencies = [
     { name = "fastapi" },
+    { name = "pandas" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "fastapi", specifier = ">=0.141.1" },
+    { name = "pandas", specifier = ">=3.0.5" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.52.4" },
 ]
 
