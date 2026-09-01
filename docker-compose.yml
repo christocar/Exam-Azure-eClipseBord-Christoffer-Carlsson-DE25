@@ -1,9 +1,11 @@
 services:
   backend:
     build:
+      # context is the repo root for both services, uv.lock lives there
       context: .
       dockerfile: backend/Dockerfile
     ports:
+      # left side is my machine, right side is inside the container
       - "8000:8000"
 
   frontend:
@@ -14,6 +16,8 @@ services:
       - "8501:8501"
     environment:
       # container name works as hostname inside the compose network
+      # this is the only difference from running locally, the code is the same
       - API_URL=http://backend:8000
     depends_on:
+      # controls startup order, but doesn't wait for the backend to be ready
       - backend
