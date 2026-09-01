@@ -15,6 +15,7 @@ RUN uv sync --package backend --no-dev --no-install-project
 
 # now copy the actual source code
 COPY backend/src backend/src
+COPY data data
 
 RUN uv sync --package backend --no-dev
 
